@@ -1,1 +1,15 @@
-<p>dashboard-page works!</p>
+<section class="dashboard-page">
+  <h1>Dashboard</h1>
+  <p>Angular funcionandoe tentando buscar categorias da API.</p>
+  
+  <h2>Categorias</h2>
+   @if (categorias.length > 0) {
+    <ul>
+      @for (categoria of categorias; track categoria.id) {
+        <li>{{ categoria.nome }}</li>
+      }
+    </ul>
+  } @else {
+    <p>Nenhuma categoria carregada.</p>
+  }
+</section>
