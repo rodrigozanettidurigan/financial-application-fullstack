@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PessoaRepository  extends JpaRepository<Pessoa,Long> {
 
-    Page<Pessoa> findByNome(String nome, Pageable pageable);
+    Page<Pessoa> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
+
 }

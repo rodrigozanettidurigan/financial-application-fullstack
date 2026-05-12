@@ -20,10 +20,15 @@ public class ResourceServerConfig {
     @Order(2)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/categorias/**", "/pessoas/**", "/lancamentos/**")
+                .securityMatcher(
+                        "/categorias", "/categorias/**",
+                        "/pessoas", "/pessoas/**", //TEMPORARIO TEMPORARIO TEMPORARIO
+                        "/lancamentos", "/lancamentos/**"
+                )
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/categorias", "/categorias/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/pessoas", "/pessoas/**").permitAll() //TEMPORARIO TEMPORARIO TEMPORARIO
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
