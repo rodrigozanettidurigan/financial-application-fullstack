@@ -1,5 +1,5 @@
 export interface Pessoa {
-    id:number;
-    nome:string;
-    email:string;
+  codigo: number;
+  nome: string;
+  ativo: boolean;
 }

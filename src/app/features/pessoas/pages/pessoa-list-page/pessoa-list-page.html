@@ -6,25 +6,26 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Código</th>
             <th>Nome</th>
-            <th>Email</th>
+            <th>Status</th>
           </tr>
         </thead>
 
         <tbody>
-          @for (pessoa of pessoas; track pessoa.id) {
+          @for (pessoa of pessoas; track pessoa.codigo) {
             <tr>
-              <td>{{ pessoa.id }}</td>
+              <td>{{ pessoa.codigo }}</td>
               <td>{{ pessoa.nome }}</td>
+              <td>{{ pessoa.ativo ? 'Ativo' : 'Inativo' }}</td>
             </tr>
           }
         </tbody>
       </table>
     } @else {
-      <p>Nenhuma Pessoa cadastrada.</p>
+      <p>Nenhuma pessoa cadastrada.</p>
     }
   } @else {
-    <p>Carregando Pessoas...</p>
+    <p>Carregando pessoas...</p>
   }
 </section>
