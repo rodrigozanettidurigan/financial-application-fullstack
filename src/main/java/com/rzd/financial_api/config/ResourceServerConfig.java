@@ -28,7 +28,8 @@ public class ResourceServerConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/categorias", "/categorias/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/pessoas", "/pessoas/**").permitAll() //TEMPORARIO TEMPORARIO TEMPORARIO
+                        .requestMatchers(HttpMethod.GET, "/pessoas", "/pessoas/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/lancamentos", "/lancamentos/**").permitAll()//TEMPORARIO TEMPORARIO TEMPORARIO
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

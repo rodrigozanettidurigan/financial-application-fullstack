@@ -44,14 +44,14 @@ public class LancamentoController {
 
 //    @Autowired
 //    private LancamentoService lancamentoService;
-    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO')")
+//    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO')") TEMPORARIO TEMPORARIO
     @GetMapping(params = "resumo")
     public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
 
         return lancamentoRepository.resumir(lancamentoFilter, pageable);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO')")
+//    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO')") TEMPORARIO TEMPORARIO
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Lancamento> criar(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response) {
@@ -60,7 +60,7 @@ public class LancamentoController {
         publisher.publishEvent(new RecursoCriadoEvent(this,response, lancamentoSalvo.getCodigo()));
         return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
     }
-    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO')")
+//    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO')") TEMPORARIO TEMPORARIO
     @GetMapping("/{codigo}")
     public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable Long codigo) {
         return lancamentoRepository.findById(codigo)
@@ -75,7 +75,7 @@ public class LancamentoController {
         List<com.rzd.financial_api.domain.exceptionhandler.ExceptionHandler.Erro> erros = Arrays.asList(new com.rzd.financial_api.domain.exceptionhandler.ExceptionHandler.Erro(mensagemUsuario, mensagemDesenvolvedor));
         return ResponseEntity.badRequest().body(erros);
     }
-    @PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO')")
+//    @PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO')") TEMPORARIO TEMPORARIO
     @DeleteMapping("/{codigo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long codigo) {
