@@ -1,0 +1,28 @@
+.topbar {
+  height: 56px;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid #ddd;
+  background: #f8f8f8;
+
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  a.active {
+    font-weight: 700;
+    color: #1976d2;
+  }
+}
+
+.content {
+  padding: 2rem;
+}

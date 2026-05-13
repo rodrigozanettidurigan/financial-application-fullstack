@@ -2,9 +2,11 @@ import { Injectable, inject} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap} from 'rxjs';
 import { map } from 'rxjs';
+import { API_CONFIG } from '../../../core/config/api.config';
+import { PageResponse } from '../../../core/models/page-response.model';
 
 import { Pessoa } from '../models/pessoa.model';
-import { PageResponse } from '../models/page-response.model';
+
 
 
 
@@ -14,7 +16,7 @@ import { PageResponse } from '../models/page-response.model';
 export class PessoaService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:8080/pessoas';
+  private readonly apiUrl = `${API_CONFIG.baseUrl}/pessoas`;
 
   listar(): Observable<Pessoa[]> {
    return this.http

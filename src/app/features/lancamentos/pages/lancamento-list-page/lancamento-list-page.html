@@ -1,0 +1,47 @@
+<section class="lancamento-list-page">
+  <h1>Lançamentos</h1>
+
+  @if (lancamentos$ | async; as lancamentos) {
+    @if (lancamentos.length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Vencimento</th>
+            <th>Pagamento</th>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Pessoa</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (lancamento of lancamentos; track lancamento.codigo) {
+            <tr>
+              <td>{{ lancamento.codigo }}</td>
+              <td>{{ lancamento.descricao }}</td>
+              <td>{{ lancamento.dataVencimento | date: 'dd/MM/yyyy' }}</td>
+              <td>
+                @if (lancamento.dataPagamento) {
+                  {{ lancamento.dataPagamento | date: 'dd/MM/yyyy' }}
+                } @else {
+                  -
+                }
+              </td>
+              <td>{{ lancamento.tipo }}</td>
+              <td>{{ lancamento.categoria}}</td>
+              <td>{{ lancamento.pessoa }}</td>
+              <td>{{ lancamento.valor | currency: 'BRL' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>Nenhum lançamento cadastrado.</p>
+    }
+  } @else {
+    <p>Carregando lançamentos...</p>
+  }
+</section>

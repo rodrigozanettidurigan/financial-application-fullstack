@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_CONFIG } from '../../../core/config/api.config';
 
 import { Categoria } from '../models/categoria.model';
 @Injectable({
@@ -9,7 +10,7 @@ import { Categoria } from '../models/categoria.model';
 export class CategoriaService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:8080/categorias';
+  private readonly apiUrl = `${API_CONFIG.baseUrl}/categorias`;
 
   listar(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.apiUrl);
