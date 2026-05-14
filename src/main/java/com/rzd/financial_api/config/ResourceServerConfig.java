@@ -29,7 +29,8 @@ public class ResourceServerConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/categorias", "/categorias/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pessoas", "/pessoas/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/lancamentos", "/lancamentos/**").permitAll()//TEMPORARIO TEMPORARIO TEMPORARIO
+                        .requestMatchers(HttpMethod.GET, "/lancamentos", "/lancamentos/**").permitAll()//TEMPORARIO TEMPORARIO TEMPORARIO add
+                        .requestMatchers(HttpMethod.DELETE, "/lancamentos", "/lancamentos/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
