@@ -5,7 +5,7 @@
   <h2>Categorias</h2>
    @if (categorias.length > 0) {
     <ul>
-      @for (categoria of categorias; track categoria.id) {
+      @for (categoria of categorias; track categoria.codigo) {
         <li>{{ categoria.nome }}</li>
       }
     </ul>

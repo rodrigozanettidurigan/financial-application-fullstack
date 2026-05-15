@@ -5,6 +5,7 @@ import { DashboardPage } from './features/dashboard/pages/dashboard-page/dashboa
 import { CategoriaListPage } from './features/categorias/pages/categoria-list-page/categoria-list-page';
 import { PessoaListPage } from './features/pessoas/pages/pessoa-list-page/pessoa-list-page';
 import { LancamentoListPage } from './features/lancamentos/pages/lancamento-list-page/lancamento-list-page';
+import { LancamentoFormPage } from './features/lancamentos/pages/lancamento-form-page/lancamento-form-page';
 
 export const routes: Routes = [
   {
@@ -32,6 +33,14 @@ export const routes: Routes = [
     path: 'lancamentos',
     component: LancamentoListPage,
   },
+  {
+  path: 'lancamentos/novo',
+  component: LancamentoFormPage,
+  },
+  {
+  path: 'lancamentos/:codigo',
+  component: LancamentoFormPage,
+  },  
     ],
   },
 ];

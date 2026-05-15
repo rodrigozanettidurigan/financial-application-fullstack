@@ -1,6 +1,5 @@
 export type TipoLancamento = 'RECEITA' | 'DESPESA';
 
-
 export interface LancamentoResumo {
   codigo: number;
   descricao: string;

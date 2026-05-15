@@ -5,6 +5,36 @@
     margin-bottom: 1.5rem;
   }
 
+  .filtro-form {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 2rem;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .actions {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+
+    button {
+      padding: 0.55rem 0.9rem;
+      cursor: pointer;
+    }
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -18,6 +48,28 @@
   }
 
   th {
+    font-weight: 600;
+  }
+
+  .pagination {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+      padding: 0.5rem 0.9rem;
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .error {
+    color: #b00020;
     font-weight: 600;
   }
 }

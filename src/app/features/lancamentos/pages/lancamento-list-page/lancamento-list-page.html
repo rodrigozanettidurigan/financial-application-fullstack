@@ -1,8 +1,49 @@
-<section class="lancamento-list-page">
-  <h1>Lançamentos</h1>
+  <div class="page-header">
+    <h1>Lançamentos</h1>
 
-  @if (lancamentos$ | async; as lancamentos) {
-    @if (lancamentos.length > 0) {
+    <a routerLink="/lancamentos/novo">Novo lançamento</a>
+  </div>
+
+  <form class="filtro-form" [formGroup]="filtroForm" (ngSubmit)="pesquisar(0)">
+    <div>
+      <label for="descricao">Descrição</label>
+      <input id="descricao" type="text" formControlName="descricao" />
+    </div>
+
+    <div>
+      <label for="dataVencimentoDe">Vencimento de</label>
+      <input
+        id="dataVencimentoDe"
+        type="date"
+        formControlName="dataVencimentoDe"
+      />
+    </div>
+
+    <div>
+      <label for="dataVencimentoAte">Vencimento até</label>
+      <input
+        id="dataVencimentoAte"
+        type="date"
+        formControlName="dataVencimentoAte"
+      />
+    </div>
+
+    <div class="actions">
+      <button type="submit">Pesquisar</button>
+      <button type="button" (click)="limpar()">Limpar</button>
+    </div>
+  </form>
+
+  @if (carregando) {
+    <p>Carregando lançamentos...</p>
+  }
+
+  @if (erro) {
+    <p class="error">{{ erro }}</p>
+  }
+
+  @if (!carregando && pagina) {
+    @if (pagina.content.length > 0) {
       <table>
         <thead>
           <tr>
@@ -14,11 +55,12 @@
             <th>Categoria</th>
             <th>Pessoa</th>
             <th>Valor</th>
+            <th>Ações</th>
           </tr>
         </thead>
 
         <tbody>
-          @for (lancamento of lancamentos; track lancamento.codigo) {
+          @for (lancamento of pagina.content; track lancamento.codigo) {
             <tr>
               <td>{{ lancamento.codigo }}</td>
               <td>{{ lancamento.descricao }}</td>
@@ -31,17 +73,37 @@
                 }
               </td>
               <td>{{ lancamento.tipo }}</td>
-              <td>{{ lancamento.categoria}}</td>
+              <td>{{ lancamento.categoria }}</td>
               <td>{{ lancamento.pessoa }}</td>
               <td>{{ lancamento.valor | currency: 'BRL' }}</td>
+              <td>
+                <a [routerLink]="['/lancamentos', lancamento.codigo]">
+                  Editar
+                </a>
+                <button type="button" (click)="excluir(lancamento)">
+                  Excluir
+                </button>
+              </td>
             </tr>
           }
         </tbody>
       </table>
+
+      <div class="pagination">
+        <button type="button" (click)="paginaAnterior()" [disabled]="pagina.first">
+          Anterior
+        </button>
+
+        <span>
+          Página {{ pagina.number + 1 }} de {{ pagina.totalPages }}
+          — {{ pagina.totalElements }} registro(s)
+        </span>
+
+        <button type="button" (click)="proximaPagina()" [disabled]="pagina.last">
+          Próxima
+        </button>
+      </div>
     } @else {
-      <p>Nenhum lançamento cadastrado.</p>
+      <p>Nenhum lançamento encontrado.</p>
     }
-  } @else {
-    <p>Carregando lançamentos...</p>
   }
-</section>
