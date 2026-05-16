@@ -22,15 +22,12 @@ public class ResourceServerConfig {
         http
                 .securityMatcher(
                         "/categorias", "/categorias/**",
-                        "/pessoas", "/pessoas/**", //TEMPORARIO TEMPORARIO TEMPORARIO
+                        "/pessoas", "/pessoas/**",
                         "/lancamentos", "/lancamentos/**"
                 )
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/categorias", "/categorias/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/pessoas", "/pessoas/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/lancamentos", "/lancamentos/**").permitAll()//TEMPORARIO TEMPORARIO TEMPORARIO add
-                        .requestMatchers(HttpMethod.DELETE, "/lancamentos", "/lancamentos/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
