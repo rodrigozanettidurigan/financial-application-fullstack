@@ -34,7 +34,7 @@ public class PessoaController {
     @Autowired
     private PessoaService pessoaService;
 
-//    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA')") TEMPORARIO
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA')")
     @GetMapping
     public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "") String nome, Pageable pageable) {
         return pessoaRepository.findByNomeContainingIgnoreCase(nome, pageable);
@@ -48,7 +48,7 @@ public class PessoaController {
         publisher.publishEvent(new RecursoCriadoEvent(this,response, pessoaSalva.getCodigo()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
     }
-//    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA')") TEMPORARIO
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA')")
     @GetMapping("/{codigo}")
     public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
         Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
