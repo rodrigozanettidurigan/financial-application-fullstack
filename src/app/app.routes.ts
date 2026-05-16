@@ -6,41 +6,58 @@ import { CategoriaListPage } from './features/categorias/pages/categoria-list-pa
 import { PessoaListPage } from './features/pessoas/pages/pessoa-list-page/pessoa-list-page';
 import { LancamentoListPage } from './features/lancamentos/pages/lancamento-list-page/lancamento-list-page';
 import { LancamentoFormPage } from './features/lancamentos/pages/lancamento-form-page/lancamento-form-page';
+import { LoginPage } from './features/auth/pages/login-page/login-page';
+import { CallbackPage } from './features/auth/pages/callback-page/callback-page';
+import { authGuard } from './core/guards/auth-guard';
+
 
 export const routes: Routes = [
   {
+  path: 'login',
+  component: LoginPage,
+  },
+  {
+  path: 'callback',
+  component: CallbackPage,
+  },
+  {
     path: '',
     component: MainLayout,
+    canActivate: [authGuard],
     children: [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: 'dashboard',
-    component: DashboardPage
-  },
-   {
-    path: 'categorias',
-    component: CategoriaListPage
-  },
-  {
-    path: 'pessoas',
-    component: PessoaListPage
-  },
-  {
-    path: 'lancamentos',
-    component: LancamentoListPage,
-  },
-  {
-  path: 'lancamentos/novo',
-  component: LancamentoFormPage,
-  },
-  {
-  path: 'lancamentos/:codigo',
-  component: LancamentoFormPage,
-  },  
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
+        component: DashboardPage
+      },
+      {
+        path: 'categorias',
+        component: CategoriaListPage
+      },
+      {
+        path: 'pessoas',
+        component: PessoaListPage
+      },
+      {
+        path: 'lancamentos',
+        component: LancamentoListPage,
+      },
+      {
+      path: 'lancamentos/novo',
+      component: LancamentoFormPage,
+      },
+      {
+      path: 'lancamentos/:codigo',
+      component: LancamentoFormPage,
+      },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
   },
 ];

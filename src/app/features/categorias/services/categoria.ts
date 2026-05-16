@@ -13,6 +13,7 @@ export class CategoriaService {
   private readonly apiUrl = `${API_CONFIG.baseUrl}/categorias`;
 
   listar(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.apiUrl);
+    return this.http
+    .get<Categoria[]>(this.apiUrl);
   }
 }
