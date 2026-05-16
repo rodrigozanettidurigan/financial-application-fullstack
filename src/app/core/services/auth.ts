@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-
+import { Router } from '@angular/router';
 import { API_CONFIG } from '../config/api.config';
 import { TokenService } from './token';
 
@@ -19,6 +19,7 @@ interface TokenResponse {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly tokenService = inject(TokenService);
+  private readonly router = inject(Router);
 
   private readonly clientId = 'angular';
   private readonly redirectUri = `${window.location.origin}/callback`;
@@ -84,6 +85,7 @@ export class AuthService {
 
   logout(): void {
     this.tokenService.limpar();
+    this.router.navigate(['/login']);
   }
   
   estaAutenticado(): boolean {
@@ -107,5 +109,16 @@ export class AuthService {
       .replace(/\//g, '_')
       .replace(/=+$/, '');
   }
+possuiPermissao(permissao: string): boolean {
+ return this.tokenService.obterPermissoes().includes(permissao);
+}
+
+obterPermissoes(): string[] {
+  return this.tokenService.obterPermissoes();
+}
+
+obterUsuario(): string | null {
+  return this.tokenService.obterUsuario();
+}
 }
 

@@ -1,118 +1,128 @@
-<section class="lancamento-form-page">
-  <h1>
-    @if (editando) {
-      Editar lançamento
-    } @else {
-      Novo lançamento
-    }
-  </h1>
+<section class="page">
+  <div class="page-header">
+    <div>
+      <h1>
+        @if (editando) {
+          Editar lançamento
+        } @else {
+          Novo lançamento
+        }
+      </h1>
+
+      <p>Preencha os dados financeiros do lançamento.</p>
+    </div>
+
+    <a routerLink="/lancamentos">Voltar para pesquisa</a>
+  </div>
 
   @if (erro) {
-    <p class="error">{{ erro }}</p>
+    <div class="error-message">
+      {{ erro }}
+    </div>
   }
 
   @if (carregando) {
-    <p>Carregando lançamento...</p>
+    <div class="card empty-state">
+      Carregando lançamento...
+    </div>
   } @else {
-    <form [formGroup]="form" (ngSubmit)="salvar()">
-      <div class="field">
-        <label for="tipo">Tipo</label>
-        <select id="tipo" formControlName="tipo">
-          <option value="RECEITA">Receita</option>
-          <option value="DESPESA">Despesa</option>
-        </select>
+    <div class="card">
+      <form class="form-grid" [formGroup]="form" (ngSubmit)="salvar()">
+        <div class="field">
+          <label for="tipo">Tipo</label>
+          <select id="tipo" formControlName="tipo">
+            <option value="RECEITA">Receita</option>
+            <option value="DESPESA">Despesa</option>
+          </select>
+        </div>
 
-        @if (form.controls.tipo.touched && form.controls.tipo.invalid) {
-          <small>Tipo é obrigatório.</small>
-        }
-      </div>
+        <div class="field">
+          <label for="dataVencimento">Data de vencimento</label>
+          <input id="dataVencimento" type="date" formControlName="dataVencimento" />
 
-      <div class="field">
-        <label for="dataVencimento">Data de vencimento</label>
-        <input id="dataVencimento" type="date" formControlName="dataVencimento" />
-
-        @if (form.controls.dataVencimento.touched && form.controls.dataVencimento.invalid) {
-          <small>Data de vencimento é obrigatória.</small>
-        }
-      </div>
-
-      <div class="field">
-        <label for="dataPagamento">Data de pagamento</label>
-        <input id="dataPagamento" type="date" formControlName="dataPagamento" />
-      </div>
-
-      <div class="field">
-        <label for="descricao">Descrição</label>
-        <input id="descricao" type="text" formControlName="descricao" />
-
-        @if (form.controls.descricao.touched && form.controls.descricao.hasError('required')) {
-          <small>Descrição é obrigatória.</small>
-        }
-
-        @if (form.controls.descricao.touched && form.controls.descricao.hasError('minlength')) {
-          <small>Descrição deve ter pelo menos 3 caracteres.</small>
-        }
-      </div>
-
-      <div class="field">
-        <label for="valor">Valor</label>
-        <input id="valor" type="number" step="0.01" formControlName="valor" />
-
-        @if (form.controls.valor.touched && form.controls.valor.invalid) {
-          <small>Valor deve ser maior que zero.</small>
-        }
-      </div>
-
-      <div class="field">
-        <label for="codigoCategoria">Categoria</label>
-        <select id="codigoCategoria" formControlName="codigoCategoria">
-          <option [ngValue]="null">Selecione</option>
-
-          @for (categoria of categorias; track categoria.codigo) {
-            <option [ngValue]="categoria.codigo">
-              {{ categoria.nome }}
-            </option>
+          @if (form.controls.dataVencimento.touched && form.controls.dataVencimento.invalid) {
+            <small>Data de vencimento é obrigatória.</small>
           }
-        </select>
+        </div>
 
-        @if (form.controls.codigoCategoria.touched && form.controls.codigoCategoria.invalid) {
-          <small>Categoria é obrigatória.</small>
-        }
-      </div>
+        <div class="field">
+          <label for="dataPagamento">Data de pagamento</label>
+          <input id="dataPagamento" type="date" formControlName="dataPagamento" />
+        </div>
 
-      <div class="field">
-        <label for="codigoPessoa">Pessoa</label>
-        <select id="codigoPessoa" formControlName="codigoPessoa">
-          <option [ngValue]="null">Selecione</option>
+        <div class="field">
+          <label for="valor">Valor</label>
+          <input id="valor" type="number" step="0.01" formControlName="valor" />
 
-          @for (pessoa of pessoas; track pessoa.codigo) {
-            <option [ngValue]="pessoa.codigo">
-              {{ pessoa.nome }}
-            </option>
+          @if (form.controls.valor.touched && form.controls.valor.invalid) {
+            <small>Valor deve ser maior que zero.</small>
           }
-        </select>
+        </div>
 
-        @if (form.controls.codigoPessoa.touched && form.controls.codigoPessoa.invalid) {
-          <small>Pessoa é obrigatória.</small>
-        }
-      </div>
+        <div class="field full">
+          <label for="descricao">Descrição</label>
+          <input id="descricao" type="text" formControlName="descricao" placeholder="Ex: Conta de energia" />
 
-      <div class="field full">
-        <label for="observacao">Observação</label>
-        <textarea id="observacao" rows="4" formControlName="observacao"></textarea>
-      </div>
-
-      <div class="actions">
-        <button type="submit" [disabled]="salvando">
-          @if (salvando) {
-            Salvando...
-          } @else {
-            Salvar
+          @if (form.controls.descricao.touched && form.controls.descricao.hasError('required')) {
+            <small>Descrição é obrigatória.</small>
           }
-        </button>
 
-        <a routerLink="/lancamentos">Voltar</a>
-      </div>
-    </form>
+          @if (form.controls.descricao.touched && form.controls.descricao.hasError('minlength')) {
+            <small>Descrição deve ter pelo menos 3 caracteres.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="codigoCategoria">Categoria</label>
+          <select id="codigoCategoria" formControlName="codigoCategoria">
+            <option [ngValue]="null">Selecione</option>
+
+            @for (categoria of categorias; track categoria.codigo) {
+              <option [ngValue]="categoria.codigo">
+                {{ categoria.nome }}
+              </option>
+            }
+          </select>
+
+          @if (form.controls.codigoCategoria.touched && form.controls.codigoCategoria.invalid) {
+            <small>Categoria é obrigatória.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="codigoPessoa">Pessoa</label>
+          <select id="codigoPessoa" formControlName="codigoPessoa">
+            <option [ngValue]="null">Selecione</option>
+
+            @for (pessoa of pessoas; track pessoa.codigo) {
+              <option [ngValue]="pessoa.codigo">
+                {{ pessoa.nome }}
+              </option>
+            }
+          </select>
+
+          @if (form.controls.codigoPessoa.touched && form.controls.codigoPessoa.invalid) {
+            <small>Pessoa é obrigatória.</small>
+          }
+        </div>
+
+        <div class="field full">
+          <label for="observacao">Observação</label>
+          <textarea id="observacao" rows="4" formControlName="observacao"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="salvando">
+            @if (salvando) {
+              Salvando...
+            } @else {
+              Salvar
+            }
+          </button>
+
+          <a routerLink="/lancamentos">Cancelar</a>
+        </div>
+      </form>
+    </div>
   }
 </section>

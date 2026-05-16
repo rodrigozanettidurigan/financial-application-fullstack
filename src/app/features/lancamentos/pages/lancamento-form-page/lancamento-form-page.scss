@@ -1,60 +1,49 @@
-.lancamento-form-page {
-  padding: 2rem;
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
 
-  h1 {
-    margin-bottom: 1.5rem;
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 700px) {
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 
-  form {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    max-width: 900px;
+  .full,
+  .form-actions {
+    grid-column: auto;
   }
 
-  .field {
-    display: flex;
+  .form-actions {
     flex-direction: column;
-    gap: 0.25rem;
-
-    &.full {
-      grid-column: 1 / -1;
-    }
-  }
-
-  label {
-    font-weight: 600;
-  }
-
-  input,
-  select,
-  textarea {
-    padding: 0.55rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font: inherit;
-  }
-
-  small {
-    color: #b00020;
-  }
-
-  .error {
-    color: #b00020;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-
-  .actions {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 1rem;
+    align-items: stretch;
 
     button {
-      padding: 0.6rem 1rem;
-      cursor: pointer;
+      width: 100%;
+    }
+
+    a {
+      text-align: center;
     }
   }
 }

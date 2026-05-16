@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { LancamentoResumo } from '../../models/lancamento-resumo.model';
 import { LancamentoService } from '../../services/lancamento';
 import { PageResponse } from '../../../../core/models/page-response.model';
+import { AuthService } from '../../../../core/services/auth';
 
 
 @Component({
@@ -17,6 +18,11 @@ import { PageResponse } from '../../../../core/models/page-response.model';
 export class LancamentoListPage {
   private readonly lancamentoService = inject(LancamentoService);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+
+  possuiPermissao(permissao: string): boolean {
+    return this.authService.possuiPermissao(permissao);
+  }
 
   filtroForm = this.formBuilder.group({
     descricao: [''],

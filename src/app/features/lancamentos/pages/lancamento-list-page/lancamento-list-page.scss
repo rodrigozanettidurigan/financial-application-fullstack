@@ -1,75 +1,110 @@
-.lancamento-list-page {
-  padding: 2rem;
+.filter-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
 
-  h1 {
-    margin-bottom: 1.5rem;
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.new-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+
+  background: var(--color-primary);
+  color: white;
+  font-weight: 800;
+}
+
+.new-link:hover {
+  background: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.badge.income {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge.expense {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.amount {
+  font-weight: 800;
+}
+
+.pagination {
+  margin-top: 1.25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  color: var(--color-muted);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .filter-form {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .filtro-form {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr auto;
-    gap: 1rem;
-    align-items: end;
-    margin-bottom: 2rem;
+  .description-field {
+    grid-column: 1 / -1;
+  }
 
-    div {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
+  .filter-actions {
+    grid-column: 1 / -1;
+  }
+}
 
-    input {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+@media (max-width: 600px) {
+  .filter-form {
+    grid-template-columns: 1fr;
+  }
 
-    .actions {
-      flex-direction: row;
-      gap: 0.5rem;
-    }
+  .filter-actions {
+    flex-direction: column;
 
     button {
-      padding: 0.55rem 0.9rem;
-      cursor: pointer;
+      width: 100%;
     }
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  th,
-  td {
-    border-bottom: 1px solid #ddd;
-    padding: 0.75rem;
-    text-align: left;
-  }
-
-  th {
-    font-weight: 600;
   }
 
   .pagination {
-    margin-top: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    align-items: stretch;
+    flex-direction: column;
 
     button {
-      padding: 0.5rem 0.9rem;
-      cursor: pointer;
-
-      &:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
+      width: 100%;
     }
-  }
-
-  .error {
-    color: #b00020;
-    font-weight: 600;
   }
 }
