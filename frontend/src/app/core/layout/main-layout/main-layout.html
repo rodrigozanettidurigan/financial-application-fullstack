@@ -1,0 +1,21 @@
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-icon">F</span>
+    <span>Financial Web</span>
+  </div>
+
+  <nav class="nav">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/categorias" routerLinkActive="active">Categorias</a>
+    <a routerLink="/pessoas" routerLinkActive="active">Pessoas</a>
+    <a routerLink="/lancamentos" routerLinkActive="active">Lançamentos</a>
+  </nav>
+
+  <button type="button" class="logout-button" (click)="logout()">
+    Sair
+  </button>
+</header>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

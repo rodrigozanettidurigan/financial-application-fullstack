@@ -1,0 +1,29 @@
+<section class="categoria-list-page">
+  <h1>Categorias</h1>
+
+  @if (categorias$ | async; as categorias) {
+    @if (categorias.length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (categoria of categorias; track categoria.codigo ) {
+            <tr>
+              <td>{{ categoria.codigo }}</td>
+              <td>{{ categoria.nome }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>Nenhuma categoria cadastrada.</p>
+    }
+  } @else {
+    <p>Carregando categorias...</p>
+  }
+</section>

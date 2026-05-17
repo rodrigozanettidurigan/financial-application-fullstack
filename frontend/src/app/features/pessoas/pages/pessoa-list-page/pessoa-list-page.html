@@ -1,0 +1,31 @@
+<section class="pessoa-list-page">
+  <h1>Pessoas</h1>
+
+  @if (pessoas$ | async; as pessoas) {
+    @if (pessoas.length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (pessoa of pessoas; track pessoa.codigo) {
+            <tr>
+              <td>{{ pessoa.codigo }}</td>
+              <td>{{ pessoa.nome }}</td>
+              <td>{{ pessoa.ativo ? 'Ativo' : 'Inativo' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>Nenhuma pessoa cadastrada.</p>
+    }
+  } @else {
+    <p>Carregando pessoas...</p>
+  }
+</section>

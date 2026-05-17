@@ -1,0 +1,133 @@
+<section class="page">
+  <div class="page-header">
+    <div>
+      <h1>Lançamentos</h1>
+      <p>Pesquise, cadastre, edite e remova movimentações financeiras.</p>
+    </div>
+
+    @if (possuiPermissao('ROLE_CADASTRAR_LANCAMENTO')) {
+      <a class="new-link" routerLink="/lancamentos/novo">
+        Novo lançamento
+      </a>
+    }
+  </div>
+
+  <div class="card">
+    <form class="filter-form" [formGroup]="filtroForm" (ngSubmit)="pesquisar(0)">
+      <div class="field description-field">
+        <label for="descricao">Descrição</label>
+        <input id="descricao" type="text" formControlName="descricao" placeholder="Ex: salário, aluguel..." />
+      </div>
+
+      <div class="field">
+        <label for="dataVencimentoDe">Vencimento de</label>
+        <input id="dataVencimentoDe" type="date" formControlName="dataVencimentoDe" />
+      </div>
+
+      <div class="field">
+        <label for="dataVencimentoAte">Vencimento até</label>
+        <input id="dataVencimentoAte" type="date" formControlName="dataVencimentoAte" />
+      </div>
+
+      <div class="filter-actions">
+        <button type="submit">Pesquisar</button>
+        <button type="button" class="button-secondary" (click)="limpar()">Limpar</button>
+      </div>
+    </form>
+  </div>
+
+  @if (carregando) {
+    <div class="card empty-state">
+      Carregando lançamentos...
+    </div>
+  }
+
+  @if (erro) {
+    <div class="error-message">
+      {{ erro }}
+    </div>
+  }
+
+  @if (!carregando && pagina) {
+    <div class="card">
+      @if (pagina.content.length > 0) {
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Vencimento</th>
+                <th>Pagamento</th>
+                <th>Tipo</th>
+                <th>Categoria</th>
+                <th>Pessoa</th>
+                <th>Valor</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (lancamento of pagina.content; track lancamento.codigo) {
+                <tr>
+                  <td>{{ lancamento.codigo }}</td>
+                  <td>{{ lancamento.descricao }}</td>
+                  <td>{{ lancamento.dataVencimento | date: 'dd/MM/yyyy' }}</td>
+                  <td>
+                    @if (lancamento.dataPagamento) {
+                      {{ lancamento.dataPagamento | date: 'dd/MM/yyyy' }}
+                    } @else {
+                      -
+                    }
+                  </td>
+                  <td>
+                    <span class="badge" [class.income]="lancamento.tipo === 'RECEITA'" [class.expense]="lancamento.tipo === 'DESPESA'">
+                      {{ lancamento.tipo }}
+                    </span>
+                  </td>
+                  <td>{{ lancamento.categoria }}</td>
+                  <td>{{ lancamento.pessoa }}</td>
+                  <td class="amount">
+                    {{ lancamento.valor | currency: 'BRL' }}
+                  </td>
+                  <td>
+                    <div class="actions-inline">
+                      @if (possuiPermissao('ROLE_CADASTRAR_LANCAMENTO')) {
+                        <a [routerLink]="['/lancamentos', lancamento.codigo]">Editar</a>
+                      }
+
+                      @if (possuiPermissao('ROLE_REMOVER_LANCAMENTO')) {
+                        <button type="button" class="button-danger" (click)="excluir(lancamento)">
+                          Excluir
+                        </button>
+                      }
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <button type="button" class="button-secondary" (click)="paginaAnterior()" [disabled]="pagina.first">
+            Anterior
+          </button>
+
+          <span>
+            Página {{ pagina.number + 1 }} de {{ pagina.totalPages }}
+            · {{ pagina.totalElements }} registro(s)
+          </span>
+
+          <button type="button" class="button-secondary" (click)="proximaPagina()" [disabled]="pagina.last">
+            Próxima
+          </button>
+        </div>
+      } @else {
+        <div class="empty-state">
+          Nenhum lançamento encontrado.
+        </div>
+      }
+    </div>
+  }
+</section>
