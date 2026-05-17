@@ -1,0 +1,12 @@
+$kind: http-request
+name: Segurança
+url: ""
+method: GET
+auth:
+  type: oauth2
+  credentials:
+    tokenName: "Token Financial API "
+    grant_type: authorization_code
+    redirect_uri: http://localhost:4200/callback
+    authUrl: http://localhost:8080/oauth2/authorize
+order: 3900138341295629
